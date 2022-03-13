@@ -23,22 +23,18 @@ function submitIssue(e) {
 
 const closeIssue = id => {
   const issues = JSON.parse(localStorage.getItem('issues'));
-  document.getElementById('title').style.textDecoration = 'line-through'
-  /* const currentIssue = issues.forEach(issue => {
-    if (issue.id === id) {
-    }
-  }); */
-  const currentIssue = issues.filter(issue => issue.id === id)
+  const currentIssue = issues.find(issue => issue.id == id)
   currentIssue.status = 'Closed';
-  // localStorage.setItem('issues', JSON.stringify(currentIssue));
-  // fetchIssues();
+  localStorage.setItem('issues', JSON.stringify(issues));
+  fetchIssues();
 }
 
 const deleteIssue = id => {
   const issues = JSON.parse(localStorage.getItem('issues'));
   const remainingIssues = issues.filter(issue => issue.id !== id)
-  document.getElementById('issue-container').style.display = 'none'
+
   localStorage.removeItem('issues', JSON.stringify(remainingIssues));
+  fetchIssues(remainingIssues);
 }
 
 const fetchIssues = () => {
